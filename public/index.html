@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vemonbot2 - Gerenciador de Conexão</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fab fa-whatsapp"></i> Vemonbot2</h1>
+            <p>Gerenciador de Conexão</p>
+        </div>
+
+        <div class="status-bar" id="connectionStatus">
+            <span class="status-indicator disconnected"></span>
+            <span id="statusText">Desconectado</span>
+        </div>
+
+        <div class="card" id="controlPanel">
+            <h2>Escolha o Método de Conexão</h2>
+            
+            <div class="toggle-container">
+                <button class="toggle-btn active" onclick="setMode('qr')">
+                    <i class="fas fa-qrcode"></i> QR Code
+                </button>
+                <button class="toggle-btn" onclick="setMode('pairing')">
+                    <i class="fas fa-keyboard"></i> Código de Pareamento
+                </button>
+            </div>
+
+            <!-- Input para Número (Oculto por padrão) -->
+            <div id="pairingInput" class="input-group hidden">
+                <label>Número do WhatsApp (com DDI e DDD)</label>
+                <input type="text" id="phoneNumber" placeholder="Ex: 5511999999999">
+                <p class="hint">Apenas números, sem + ou espaços.</p>
+            </div>
+
+            <button id="connectBtn" class="action-btn" onclick="startConnection()">
+                Iniciar Conexão
+            </button>
+        </div>
+
+        <!-- Área de Exibição (QR ou Código) -->
+        <div class="card hidden" id="displayArea">
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+                <p>Aguardando...</p>
+            </div>
+
+            <!-- QR Code Display -->
+            <div id="qrDisplay" class="hidden">
+                <h3>Escaneie o QR Code</h3>
+                <div id="qrcode"></div>
+            </div>
+
+            <!-- Pairing Code Display -->
+            <div id="codeDisplay" class="hidden">
+                <h3>Código de Pareamento</h3>
+                <div class="pairing-code" id="pairingCodeText">---- ----</div>
+                <p>Digite este código no seu WhatsApp</p>
+            </div>
+        </div>
+        
+        <div class="logs-card">
+            <h3>Logs do Sistema</h3>
+            <div id="logs" class="logs-container">
+                <div class="log-entry">Aguardando início...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="client.js"></script>
+</body>
+</html>

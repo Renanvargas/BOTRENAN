@@ -13,6 +13,7 @@
     "axios": "^1.11.0",
     "chalk": "^4.1.2",
     "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "performance-now": "^2.1.0",
     "pino": "^9.7.0",
     "puppeteer": "^24.36.1",
