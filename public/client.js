@@ -6,10 +6,10 @@ function setMode(mode) {
     document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
     
     if (mode === 'qr') {
-        document.querySelector('button[onclick="setMode('qr')"]').classList.add('active');
+        document.querySelector(`button[onclick="setMode('qr')"]`).classList.add('active');
         document.getElementById('pairingInput').classList.add('hidden');
     } else {
-        document.querySelector('button[onclick="setMode('pairing')"]').classList.add('active');
+        document.querySelector(`button[onclick="setMode('pairing')"]`).classList.add('active');
         document.getElementById('pairingInput').classList.remove('hidden');
     }
 }
