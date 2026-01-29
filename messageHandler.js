@@ -322,9 +322,17 @@ module.exports = async (sock, m) => {
             }
             
             const sendMenu = async (caption) => {
-                if (menuBuffer) await sock.sendMessage(from, { image: menuBuffer, caption: caption }, { quoted: msg })
-                else await sock.sendMessage(from, { text: caption }, { quoted: msg })
-            }
+    if (menuBuffer) {
+        
+        await sock.sendMessage(from, { 
+            video: menuBuffer,
+            gifPlayback: true, 
+            caption: caption 
+        }, { quoted: msg })
+    } else {
+        await sock.sendMessage(from, { text: caption }, { quoted: msg })
+    }
+}
 
             switch (command) {
                 // MENUS
