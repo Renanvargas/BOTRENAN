@@ -23,7 +23,7 @@ const { menutinder } = require('./dono/menus/menutinder')
 
 // CONFIGURAÇÕES
 const nomeBot = "RenanBOT v4"
-const imagemMenu = "./unnamed.jpg"
+const imagemMenu = "./anime.gif"
 
 // FUNÇÕES AUXILIARES
 const getRandom = (ext) => {
