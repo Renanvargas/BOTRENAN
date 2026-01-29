@@ -323,12 +323,30 @@ module.exports = async (sock, m) => {
             
             const sendMenu = async (caption) => {
     if (menuBuffer) {
+        // Converte GIF para MP4 (WhatsApp prefere assim)
+        const tempGif = `./temp_menu_${Date.now()}.gif`
+        const tempMp4 = `./temp_menu_${Date.now()}.mp4`
         
-        await sock.sendMessage(from, { 
-            video: menuBuffer,
-            gifPlayback: true, 
-            caption: caption 
-        }, { quoted: msg })
+        fs.writeFileSync(tempGif, menuBuffer)
+        
+        exec(`ffmpeg -i ${tempGif} -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ${tempMp4}`, async (err) => {
+            fs.unlinkSync(tempGif)
+            
+            if (!err) {
+                await sock.sendMessage(from, { 
+                    video: fs.readFileSync(tempMp4),
+                    gifPlayback: true,
+                    caption: caption
+                }, { quoted: msg })
+                fs.unlinkSync(tempMp4)
+            } else {
+                // Fallback: envia como imagem estática
+                await sock.sendMessage(from, { 
+                    image: menuBuffer, 
+                    caption: caption 
+                }, { quoted: msg })
+            }
+        })
     } else {
         await sock.sendMessage(from, { text: caption }, { quoted: msg })
     }
